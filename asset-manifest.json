@@ -1,16 +1,17 @@
 {
   "files": {
     "main.css": "/irfaan-portfolio/static/css/main.f855e6bc.css",
-    "main.js": "/irfaan-portfolio/static/js/main.f295af99.js",
+    "main.js": "/irfaan-portfolio/static/js/main.1852cd30.js",
     "static/js/453.7dcaed39.chunk.js": "/irfaan-portfolio/static/js/453.7dcaed39.chunk.js",
+    "static/media/profile.jpeg": "/irfaan-portfolio/static/media/profile.7bcb6079b57b13bb9a85.jpeg",
     "static/media/logo.svg": "/irfaan-portfolio/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/irfaan-portfolio/index.html",
     "main.f855e6bc.css.map": "/irfaan-portfolio/static/css/main.f855e6bc.css.map",
-    "main.f295af99.js.map": "/irfaan-portfolio/static/js/main.f295af99.js.map",
+    "main.1852cd30.js.map": "/irfaan-portfolio/static/js/main.1852cd30.js.map",
     "453.7dcaed39.chunk.js.map": "/irfaan-portfolio/static/js/453.7dcaed39.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f855e6bc.css",
-    "static/js/main.f295af99.js"
+    "static/js/main.1852cd30.js"
   ]
 }
