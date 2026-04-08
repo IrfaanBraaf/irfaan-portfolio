@@ -1,69 +1,46 @@
 /* eslint-disable */
-import React from "react";
+import { React , useState} from "react";
 import { colors } from "../Config";
-import profileImg from "../images/profile.jpeg"; 
-export default function Sidebar({}) {
-  const menuItems = ["MainPage", "Experience", "Skills", "Projects"];
+import profileImg from "../images/profile.jpeg";
 
-  const Navigate = (item) => {
-    switch (item) {
-      case "MainPage":
-        return;
-      case "Experience":
-        return;
-      case "Skills":
-        return;
-      case "Projects":
-        return;
-      default:
-        return;
-    }
-  };
-
+export default function Sidebar({ onNavigate }) {
+  const menuItems = ["About Me", "Experience", "Skills", "Projects"];
+  const {active , setactive } = useState("About Me");
   return (
     <div
       style={{
-        width: "250px",
-        background: colors.shades.sage900,
-        color: colors.grayMuted,
-        padding: "24px 20px",
+        width: "260px",
+        background: colors.bark.dark, 
+        color: colors.cream.light,
+        padding: "28px 22px",
         minHeight: "100vh",
+        boxSizing: "border-box",
+        borderRight: `1px solid ${colors.bark.light}`,
       }}
     >
-
-
-          <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          marginBottom: "24px",
-        }}
-      >
+    
+      <div style={{ marginBottom: "24px" }}>
         <img
           src={profileImg}
-          alt="Irfaan Braaf profile"
+          alt="Profile"
           style={{
-            width: "1000px",   
-            height: "120px",   
+            width: "100%",
+            height: "140px",
             objectFit: "cover",
+            borderRadius: "18px",
             border: `2px solid ${colors.sage.light}`,
-            boxShadow: `0 4px 12px rgba(0,0,0,0.2)`,
-            borderRadius: "20px", 
- 
           }}
         />
       </div>
 
-
-      <div style={{ marginBottom: "30px" }}>
+      
+      <div style={{ marginBottom: "32px" }}>
         <h2
           style={{
             margin: 0,
-            fontSize: "26px",
+            fontSize: "24px",
             fontWeight: 700,
-            color: colors.sage.light,
-            letterSpacing: "0.5px",
-            lineHeight: "1.2",
+            color: colors.cream.light,
           }}
         >
           Irfaan Braaf
@@ -71,29 +48,49 @@ export default function Sidebar({}) {
 
         <h3
           style={{
-            margin: "8px 0 0 0",
-            fontSize: "14px",
+            margin: "6px 0 0 0",
+            fontSize: "13px",
             fontWeight: 500,
             color: colors.sage.light,
-            letterSpacing: "2px",
+            letterSpacing: "1.5px",
             textTransform: "uppercase",
           }}
         >
-          Junior Software Developer
+           Software Developer
         </h3>
       </div>
 
+ 
       {menuItems.map((item) => (
         <div
           key={item}
-          onClick={() => Navigate(item)}
+          onClick={() => onNavigate?.(item)}
           style={{
-            margin: "15px 0",
+            margin: "14px 0",
+            padding: "12px 14px",
+            borderRadius: "16px", 
             cursor: "pointer",
-            color: colors.sage.light,
-            transition: "0.2s",
-            fontSize: "15px",
+            fontSize: "14px",
             fontWeight: 500,
+            color: colors.cream.light,
+
+
+            border: `1.5px solid ${colors.sage.DEFAULT}`,
+            background: "rgba(156, 175, 136, 0.08)",
+
+            transition: "all 0.25s ease",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = colors.sage.dark;
+            e.currentTarget.style.color = "#fff";
+            e.currentTarget.style.borderColor = colors.sage.light;
+            e.currentTarget.style.transform = "translateX(6px)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(156, 175, 136, 0.08)";
+            e.currentTarget.style.color = colors.cream.light;
+            e.currentTarget.style.borderColor = colors.sage.DEFAULT;
+            e.currentTarget.style.transform = "translateX(0)";
           }}
         >
           {item.toUpperCase()}
