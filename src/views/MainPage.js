@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { useState } from "react";
+import { colors } from "../Config";
 import Sidebar from "../components/Sidebar";
 
 export default function MainPage() {
