@@ -5,7 +5,7 @@ import ExperienceCard from "./ExperienceCard";
 import TreeSVG from "./TreeSVG";
 
 export default function CareerTree() {
-  const [focused, setFocused] = useState(null); 
+  const [focused, setFocused] = useState(null);
 
   const roles = [
     {
@@ -17,8 +17,7 @@ export default function CareerTree() {
         "Built interactive web features in React and Node.js",
         "Collaborated with senior developers to debug and optimize code",
         "Prepared project documentation and unit tests"
-      ],
-      position: { left: "15%", top: "60%" }
+      ]
     },
     {
       key: "junior",
@@ -29,28 +28,37 @@ export default function CareerTree() {
         "Developed client-facing features with React and Redux",
         "Optimized backend APIs (Node.js, Express) for performance",
         "Contributed to agile sprints and code reviews"
-      ],
-      position: { left: "60%", top: "35%" }
+      ]
     }
   ];
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "500px" }}>
+    <div style={{ position: "relative", width: "100%", height: "600px", marginTop: "20px" }}>
+      <TreeSVG />
 
-      <TreeSVG style={{ position: "absolute", top: 0, left: "calc(50% - 1px)" }} />
-
-      {roles.map(role => (
+      {/* First card - left side */}
+      <div style={{ position: "absolute", left: "20px", top: "130px", width: "150px" }}>
         <ExperienceCard
-          key={role.key}
-          title={role.title}
-          company={role.company}
-          dates={role.dates}
-          bullets={role.bullets}
-          position={role.position}
-          isFocused={focused === role.key}
-          onClick={() => setFocused(focused === role.key ? null : role.key)}
+          title={roles[0].title}
+          company={roles[0].company}
+          dates={roles[0].dates}
+          bullets={roles[0].bullets}
+          isFocused={focused === roles[0].key}
+          onClick={() => setFocused(focused === roles[0].key ? null : roles[0].key)}
         />
-      ))}
+      </div>
+
+      {/* Second card - right side */}
+      <div style={{ position: "absolute", right: "20px", top: "290px", width: "150px" }}>
+        <ExperienceCard
+          title={roles[1].title}
+          company={roles[1].company}
+          dates={roles[1].dates}
+          bullets={roles[1].bullets}
+          isFocused={focused === roles[1].key}
+          onClick={() => setFocused(focused === roles[1].key ? null : roles[1].key)}
+        />
+      </div>
     </div>
   );
 }

@@ -1,57 +1,39 @@
 /* eslint-disable */
-import React, { useState } from "react";
-import { colors } from "../Config";
-import ExperienceCard from "./ExperienceCard";
-import TreeSVG from "./TreeSVG";
+import React from "react";
 
-export default function CareerTree() {
-  const [focused, setFocused] = useState(null); 
-
-  const roles = [
-    {
-      key: "intern",
-      title: "Software Development Intern",
-      company: "GreenTech Co.",
-      dates: "Jun 2022 – Aug 2022",
-      bullets: [
-        "Built interactive web features in React and Node.js",
-        "Collaborated with senior developers to debug and optimize code",
-        "Prepared project documentation and unit tests"
-      ],
-      position: { left: "15%", top: "60%" }
-    },
-    {
-      key: "junior",
-      title: "Junior Software Developer",
-      company: "EcoApps Ltd.",
-      dates: "Sep 2022 – Present",
-      bullets: [
-        "Developed client-facing features with React and Redux",
-        "Optimized backend APIs (Node.js, Express) for performance",
-        "Contributed to agile sprints and code reviews"
-      ],
-      position: { left: "60%", top: "35%" }
-    }
-  ];
-
+export default function TreeSVG() {
   return (
-    <div style={{ position: "relative", width: "100%", height: "500px" }}>
+    <svg
+      width="100%"
+      height="600px"
+      viewBox="0 0 400 600"
+      preserveAspectRatio="xMidYMid meet"
+      style={{ position: "absolute", top: 0, left: 0 }}
+    >
+      {/* Main vertical timeline */}
+      <line x1="200" y1="80" x2="200" y2="580" stroke="#9CAF88" strokeWidth="3" />
 
-      <TreeSVG style={{ position: "absolute", top: 0, left: "calc(50% - 1px)" }} />
+      {/* Start circle */}
+      <circle cx="200" cy="70" r="12" fill="#5C4033" stroke="#9CAF88" strokeWidth="3" />
 
- 
-      {roles.map(role => (
-        <ExperienceCard
-          key={role.key}
-          title={role.title}
-          company={role.company}
-          dates={role.dates}
-          bullets={role.bullets}
-          position={role.position}
-          isFocused={focused === role.key}
-          onClick={() => setFocused(focused === role.key ? null : role.key)}
-        />
-      ))}
-    </div>
+      {/* First arrow and date */}
+      <text x="205" y="65" fontSize="12" fill="#5C4033" fontWeight="bold">
+        2022
+      </text>
+
+      {/* Arrow pointing left to first card */}
+      <line x1="200" y1="160" x2="100" y2="160" stroke="#9CAF88" strokeWidth="2" />
+      <polygon points="100,160 110,155 110,165" fill="#9CAF88" />
+      <text x="120" y="155" fontSize="11" fill="#7A8B6E" fontWeight="500">
+        Jun 2022 – Aug 2022
+      </text>
+
+      {/* Second arrow pointing right to second card */}
+      <line x1="200" y1="320" x2="300" y2="320" stroke="#9CAF88" strokeWidth="2" />
+      <polygon points="300,320 290,315 290,325" fill="#9CAF88" />
+      <text x="210" y="315" fontSize="11" fill="#7A8B6E" fontWeight="500">
+        Sep 2022 – Present
+      </text>
+    </svg>
   );
 }
