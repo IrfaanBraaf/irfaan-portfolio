@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { React , useState} from "react";
+import { React } from "react";
 import { colors } from "../Config";
 import profileImg from "../images/profile.jpeg";
 
-export default function Sidebar({ onNavigate }) {
+export default function Sidebar({ activePage, onNavigate }) {
   const menuItems = ["About Me", "Experience", "Skills", "Projects"];
-  const {active , setactive } = useState("About Me");
+   
   return (
     <div
       style={{
@@ -64,7 +64,7 @@ export default function Sidebar({ onNavigate }) {
       {menuItems.map((item) => (
         <div
           key={item}
-          onClick={() => onNavigate?.(item)}
+          onClick={() => onNavigate(item)}
           style={{
             margin: "14px 0",
             padding: "12px 14px",
@@ -72,12 +72,9 @@ export default function Sidebar({ onNavigate }) {
             cursor: "pointer",
             fontSize: "14px",
             fontWeight: 500,
-            color: colors.cream.light,
-
-
-            border: `1.5px solid ${colors.sage.DEFAULT}`,
-            background: "rgba(156, 175, 136, 0.08)",
-
+            color: activePage === item ? "#fff" : colors.cream.light,
+            border: `1.5px solid ${activePage === item ? colors.sage.light : colors.sage.DEFAULT}`,
+            background: activePage === item ? colors.sage.dark : "rgba(156, 175, 136, 0.08)",
             transition: "all 0.25s ease",
           }}
           onMouseEnter={(e) => {
@@ -87,9 +84,9 @@ export default function Sidebar({ onNavigate }) {
             e.currentTarget.style.transform = "translateX(6px)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(156, 175, 136, 0.08)";
-            e.currentTarget.style.color = colors.cream.light;
-            e.currentTarget.style.borderColor = colors.sage.DEFAULT;
+            e.currentTarget.style.background = activePage === item ? colors.sage.dark : "rgba(156, 175, 136, 0.08)";
+            e.currentTarget.style.color = activePage === item ? "#fff" : colors.cream.light;
+            e.currentTarget.style.borderColor = activePage === item ? colors.sage.light : colors.sage.DEFAULT;
             e.currentTarget.style.transform = "translateX(0)";
           }}
         >
