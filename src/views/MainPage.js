@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Styles from "../Styles";
-import { UseTypewriter } from "../components/UseTypewriter";
+import { useTypewriter } from "../components/UseTypewriter";
 import { ProjectsData } from "../ProjectData";
 import ProjectsGallery from "../components/ProjectsGallery";
 
@@ -15,7 +15,7 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
   const inputRef = useRef(null);
   const hasInitialized = useRef(false);
 
-  const { isTyping } = UseTypewriter(pendingLines, setOutputLines);
+  const { isTyping } = useTypewriter(pendingLines, setOutputLines);
 
   const terminalPath = activePage === "About Me" ? "/about me" : `/${activePage.toLowerCase()}`;
 
@@ -60,6 +60,7 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [externalCommand]);
 
+
   // Helper: Queue text lines for typing
   const enqueueResponse = useCallback((responseText, type = "output") => {
     if (!responseText || typeof responseText !== "string") return;
@@ -67,12 +68,19 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
     setPendingLines((prev) => [...prev, ...lines]);
   }, []);
 
-  // Execute command
+  // Execute command – CLEARS SCREEN before running new command (except 'clear')
   const executeCommand = useCallback(
     (cmd) => {
       const trimmed = cmd.trim().toLowerCase();
       if (!trimmed) return;
 
+      // Clear screen before every command (unless it's 'clear' itself)
+      if (trimmed !== "clear") {
+        setOutputLines([]);
+        setPendingLines([]);
+      }
+
+      // Add command line to output
       setOutputLines((prev) => [
         ...prev,
         { type: "command", content: `visitor@portfolio:~$ ${cmd}` },
@@ -111,7 +119,7 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
         case "clear":
           setOutputLines([]);
           setPendingLines([]);
-          return;
+          return; // already cleared above, just return
         default:
           response = `Command not found: ${trimmed}. Type 'help' for available commands.`;
           responseType = "error";
@@ -122,18 +130,18 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
         setPendingLines((prev) => [...prev, { type: "output", content: "" }]);
       }
     },
-    [enqueueResponse]
+    [enqueueResponse, onPageChange]
   );
 
   const handleCommandSubmit = (e) => {
     e.preventDefault();
-    if (command.trim() && !isTyping) {
+    if (command.trim()) {
       executeCommand(command);
       setCommand("");
     }
   };
 
-  // Formatters
+  // Formatters (unchanged)
   const formatHelpOutput = () => {
     return [
       "Available commands:",
@@ -260,7 +268,6 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
               style={Styles.input}
               autoFocus
               spellCheck={false}
-              disabled={isTyping}
             />
             <span
               style={{
@@ -271,11 +278,7 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
           </form>
         </div>
       </div>
-
-      <div style={Styles.statusBar}>
-        <span>— Click anywhere or type commands —</span>
-        <span>help • about • projects • skills • experience</span>
-      </div>
+      {/* Status bar removed */}
     </div>
   );
 }
