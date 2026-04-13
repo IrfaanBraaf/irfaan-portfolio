@@ -1,166 +1,335 @@
 /* eslint-disable */
-import React, { useState } from "react";
-import { colors } from "../Config";
+import React, { useState, useEffect, useRef } from "react";
 
-export default function MainPage() {
-    const [hoveredCard, setHoveredCard] = useState(null);
-    const [lockedCard, setLockedCard] = useState(null);
+export default function MainPage({ externalCommand, onCommandProcessed }) {
+  const [command, setCommand] = useState("");
+  const [outputLines, setOutputLines] = useState([]);
+  const [typingText, setTypingText] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
+  const terminalBodyRef = useRef(null);
+  const inputRef = useRef(null);
 
-    const cards = [
-        {
-            key: "professional",
-            title: "Professional Ideals",
-            text:
-                "My professional ideals guide every project. I believe in quality and integrity, which means writing clean, maintainable code that I can stand behind. I value innovation and continuous learning, always exploring new technologies to solve problems creatively. Collaboration is also key: I work closely with teammates and clients, sharing ideas and feedback to build the best possible product.",
-        },
-        {
-            key: "values",
-            title: "Personal Values",
-            text:
-                "Integrity, curiosity, empathy, and balance shape how I live and work. I value honesty and transparency, and I take responsibility for what I do. I enjoy learning continuously, growing through new experiences, and understanding different perspectives. I also believe in making time for family, well-being, and the things that keep life meaningful outside of work.",
-        },
-        {
-            key: "goals",
-            title: "Goals in Life",
-            text:
-                "My goals reflect both growth and purpose. Professionally, I aim to strengthen my full-stack development skills, contribute to meaningful projects, and eventually lead work that makes a real impact. Personally, I want to keep learning, stay connected to nature, and build a life that balances success, peace, and contribution to others.",
-        },
-    ];
+  const welcomeMsg =
+    "Welcome to my interactive terminal. Type 'help' to see available commands.";
 
-    const activeCard = lockedCard || hoveredCard;
+  // Welcome typing animation
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setTypingText(welcomeMsg.slice(0, i));
+      i++;
+      if (i > welcomeMsg.length) {
+        clearInterval(interval);
+        setOutputLines((prev) => [
+          ...prev,
+          { type: "output", content: welcomeMsg },
+          { type: "output", content: "" },
+        ]);
+        // After welcome finishes, automatically run "about"
+        setTimeout(() => {
+          executeCommand("about");
+        }, 300);
+      }
+    }, 40);
+    return () => clearInterval(interval);
+  }, []);
 
+  // Blinking cursor
+  useEffect(() => {
+    const blinkInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 530);
+    return () => clearInterval(blinkInterval);
+  }, []);
+
+  // Auto-scroll
+  useEffect(() => {
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+    }
+  }, [outputLines]);
+
+  // Focus input
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  // Listen for external command from sidebar
+  useEffect(() => {
+    if (externalCommand && externalCommand.trim() !== "") {
+      executeCommand(externalCommand);
+      if (onCommandProcessed) onCommandProcessed();
+    }
+  }, [externalCommand]);
+
+  const executeCommand = (cmd) => {
+    const trimmedCmd = cmd.trim().toLowerCase();
+    if (!trimmedCmd) return;
+
+    // Add command line to output
+    setOutputLines((prev) => [
+      ...prev,
+      { type: "command", content: `visitor@portfolio:~$ ${cmd}` },
+    ]);
+
+    let response = "";
+    let responseType = "output";
+
+    switch (trimmedCmd) {
+      case "help":
+        response =
+          "Available commands:\n" +
+          "  about       - Learn about my professional ideals, values, and goals\n" +
+          "  projects    - See a list of my projects\n" +
+          "  experience  - View my work experience\n" +
+          "  skills      - Check out my technical skills\n" +
+          "  clear       - Clear the terminal screen\n" +
+          "  help        - Show this help message";
+        break;
+      case "about":
+        response = formatAboutOutput();
+        break;
+      case "projects":
+        response = formatProjectsOutput();
+        break;
+      case "experience":
+        response = formatExperienceOutput();
+        break;
+      case "skills":
+        response = formatSkillsOutput();
+        break;
+      case "clear":
+        setOutputLines([]);
+        return;
+      default:
+        response = `Command not found: ${trimmedCmd}. Type 'help' for available commands.`;
+        responseType = "error";
+    }
+
+    if (response) {
+      const lines = response.split("\n");
+      lines.forEach((line) => {
+        setOutputLines((prev) => [...prev, { type: responseType, content: line }]);
+      });
+      setOutputLines((prev) => [...prev, { type: "output", content: "" }]);
+    }
+  };
+
+  const handleCommandSubmit = (e) => {
+    e.preventDefault();
+    executeCommand(command);
+    setCommand("");
+  };
+
+  // Formatting functions (unchanged from your original)
+  const formatAboutOutput = () => {
     return (
-        <div
-            style={{
-                flex: 1,
-
-                padding: "48px",
-                background: colors.sand.light,
-                color: colors.bark.dark,
-                boxSizing: "border-box",
-            }}
-        >
-            <section style={{ marginBottom: "50px" }}>
-                <div
-                    style={{
-                        maxWidth: "900px",
-                        margin: "0 auto",
-                        textAlign: "center",
-                    }}
-                >
-                    <h1
-                        style={{
-                            marginBottom: "16px",
-                            color: colors.bark.dark,
-                            fontSize: "42px",
-                            fontWeight: 800,
-                            letterSpacing: "0.5px",
-                        }}
-                    >
-                        About Me
-                    </h1>
-
-                    <p
-                        style={{
-                            lineHeight: "1.8",
-                            fontSize: "18px",
-                            color: colors.bark.dark,
-                            margin: 0,
-                        }}
-                    >
-                        I am a passionate software developer with experience in building
-                        full-stack web and mobile applications. I enjoy solving real-world
-                        problems through technology and creating systems that are
-                        reliable, scalable, and user-focused. I value thoughtful design,
-                        practical solutions, and work that makes a positive difference.
-                    </p>
-                </div>
-            </section>
-
-            <section>
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-                        gap: "20px",
-                        alignItems: "start",
-                    }}
-                >
-                    {cards.map((card) => {
-                        const isExpanded = activeCard === card.key;
-
-                        return (
-                            <div
-                                key={card.key}
-                                onMouseEnter={() => setHoveredCard(card.key)}
-                                onMouseLeave={() => setHoveredCard(null)}
-                                onClick={() =>
-                                    setLockedCard((prev) =>
-                                        prev === card.key ? null : card.key
-                                    )
-                                }
-                                style={{
-                                    background: isExpanded
-                                        ? colors.sage50
-                                        : colors.sage100,
-                                    border: `1.5px solid ${isExpanded ? colors.sage600 : colors.sage200
-                                        }`,
-                                    borderRadius: "22px",
-                                    padding: isExpanded ? "22px" : "14px 18px",
-                                    cursor: "pointer",
-                                    boxShadow: isExpanded
-                                        ? "0 14px 30px rgba(92, 64, 51, 0.12)"
-                                        : "0 8px 18px rgba(92, 64, 51, 0.06)",
-                                    transition: "all 0.25s ease",
-                                    transform: isExpanded ? "translateY(-6px)" : "translateY(0)",
-                                    overflow: "hidden",
-                                    minHeight: isExpanded ? "280px" : "72px",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    textAlign: "center",
-                                }}
-                            >
-                                <h2
-                                    style={{
-                                        margin: 0,
-                                        fontSize: "20px",
-                                        color: colors.bark.dark,
-                                        fontWeight: 700,
-                                        width: "100%",
-                                    }}
-                                >
-                                    {card.title}
-                                </h2>
-
-                                <div
-                                    style={{
-                                        marginTop: isExpanded ? "14px" : "0px",
-                                        maxHeight: isExpanded ? "500px" : "0px",
-                                        opacity: isExpanded ? 1 : 0,
-                                        overflow: "hidden",
-                                        transition: "all 0.25s ease",
-                                        width: "100%",
-                                    }}
-                                >
-                                    <p
-                                        style={{
-                                            margin: 0,
-                                            lineHeight: "1.7",
-                                            color: colors.bark.dark,
-                                            fontSize: "15px",
-                                            textAlign: "left",
-                                        }}
-                                    >
-                                        {card.text}
-                                    </p>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </section>
-        </div>
+      "══════════════════════════════════════════════════════════\n" +
+      "                     ABOUT ME\n" +
+      "══════════════════════════════════════════════════════════\n\n" +
+      "I am a passionate software developer with experience in building\n" +
+      "full-stack web and mobile applications. I enjoy solving real-world\n" +
+      "problems through technology and creating systems that are reliable,\n" +
+      "scalable, and user-focused.\n\n" +
+      "► PROFESSIONAL IDEALS\n" +
+      "   Quality, integrity, clean maintainable code. Innovation and\n" +
+      "   continuous learning. Collaboration and feedback.\n\n" +
+      "► PERSONAL VALUES\n" +
+      "   Integrity, curiosity, empathy, balance. Honesty, transparency,\n" +
+      "   and making time for what matters outside work.\n\n" +
+      "► GOALS IN LIFE\n" +
+      "   Strengthen full-stack skills, contribute to meaningful projects,\n" +
+      "   stay connected to nature, and build a life of balance and purpose."
     );
+  };
+
+  const formatProjectsOutput = () => {
+    return (
+      "══════════════════════════════════════════════════════════\n" +
+      "                    PROJECTS\n" +
+      "══════════════════════════════════════════════════════════\n\n" +
+      "📁 Project Alpha\n" +
+      "   A full-stack e-commerce platform with React and Node.js\n" +
+      "   Tech: React, Express, MongoDB, Stripe\n\n" +
+      "📁 TaskFlow\n" +
+      "   Collaborative task management app with real-time updates\n" +
+      "   Tech: Next.js, Tailwind, Prisma, PostgreSQL\n\n" +
+      "📁 WeatherDash\n" +
+      "   Beautiful weather dashboard with interactive maps\n" +
+      "   Tech: TypeScript, D3.js, OpenWeather API"
+    );
+  };
+
+  const formatExperienceOutput = () => {
+    return (
+      "══════════════════════════════════════════════════════════\n" +
+      "                   WORK EXPERIENCE\n" +
+      "══════════════════════════════════════════════════════════\n\n" +
+      "► Senior Developer @ TechCorp (2022–Present)\n" +
+      "   - Lead frontend architecture for customer dashboard\n" +
+      "   - Mentored junior developers, improved performance by 40%\n\n" +
+      "► Full-Stack Engineer @ StartupX (2020–2022)\n" +
+      "   - Built scalable microservices with Node.js and Docker\n" +
+      "   - Implemented CI/CD pipelines and reduced deploy time\n\n" +
+      "► Junior Developer @ WebAgency (2018–2020)\n" +
+      "   - Developed responsive websites for clients\n" +
+      "   - Collaborated with designers to deliver pixel-perfect UIs"
+    );
+  };
+
+  const formatSkillsOutput = () => {
+    return (
+      "══════════════════════════════════════════════════════════\n" +
+      "                    TECHNICAL SKILLS\n" +
+      "══════════════════════════════════════════════════════════\n\n" +
+      "Languages:   JavaScript (ES6+), TypeScript, Python, Go\n" +
+      "Frontend:    React, Next.js, Vue, Tailwind CSS\n" +
+      "Backend:     Node.js, Express, Django, FastAPI\n" +
+      "Databases:   PostgreSQL, MongoDB, Redis\n" +
+      "DevOps:      Docker, Kubernetes, GitHub Actions, AWS\n" +
+      "Tools:       Git, Webpack, Vite, Figma"
+    );
+  };
+
+  return (
+    <div
+      style={{
+        flex: 1,
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        background: "#0c0c0c",
+        fontFamily: "'Courier New', Courier, monospace",
+        color: "#33ff33",
+        padding: "20px",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          background: "#0a0a0a",
+          border: "1px solid #2a2a2a",
+          borderRadius: "10px",
+          overflow: "hidden",
+          boxShadow: "0 0 30px rgba(0, 255, 0, 0.1)",
+        }}
+      >
+        {/* Terminal header */}
+        <div
+          style={{
+            background: "#1a1a1a",
+            padding: "10px 16px",
+            display: "flex",
+            alignItems: "center",
+            borderBottom: "1px solid #333",
+          }}
+        >
+          <div style={{ display: "flex", gap: "8px" }}>
+            <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#ff5f56" }} />
+            <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#ffbd2e" }} />
+            <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#27c93f" }} />
+          </div>
+          <div style={{ marginLeft: 16, color: "#aaa", fontSize: 14, fontWeight: "bold" }}>
+            visitor@portfolio:~
+          </div>
+        </div>
+
+        {/* Terminal body */}
+        <div
+          ref={terminalBodyRef}
+          style={{
+            flex: 1,
+            padding: "20px",
+            overflowY: "auto",
+            fontSize: "15px",
+            lineHeight: "1.6",
+            background: "#0c0c0c",
+          }}
+          onClick={() => inputRef.current?.focus()}
+        >
+          {/* Typing animation (only while welcome is being typed) */}
+          {typingText && outputLines.length === 0 && (
+            <div style={{ display: "flex" }}>
+              <span style={{ color: "#00ff00", marginRight: 8 }}>$</span>
+              <span>{typingText}</span>
+              <span
+                style={{
+                  display: "inline-block",
+                  width: 8,
+                  height: "1.2em",
+                  background: showCursor ? "#33ff33" : "transparent",
+                  marginLeft: 2,
+                }}
+              />
+            </div>
+          )}
+
+          {/* Output lines */}
+          {outputLines.map((line, index) => (
+            <div
+              key={index}
+              style={{
+                color: line.type === "command" ? "#00ff00" : line.type === "error" ? "#ff6666" : "#bbffbb",
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+              }}
+            >
+              {line.content}
+            </div>
+          ))}
+
+          {/* Input line */}
+          <form onSubmit={handleCommandSubmit} style={{ display: "flex", marginTop: 8 }}>
+            <span style={{ color: "#00ff00", marginRight: 8, fontWeight: "bold" }}>
+              visitor@portfolio:~$
+            </span>
+            <input
+              ref={inputRef}
+              type="text"
+              value={command}
+              onChange={(e) => setCommand(e.target.value)}
+              style={{
+                background: "transparent",
+                border: "none",
+                outline: "none",
+                color: "#33ff33",
+                fontFamily: "inherit",
+                fontSize: "15px",
+                flex: 1,
+                caretColor: "#00ff00",
+              }}
+              autoFocus
+              spellCheck={false}
+            />
+            <span
+              style={{
+                display: "inline-block",
+                width: 8,
+                height: "1.2em",
+                background: showCursor ? "#33ff33" : "transparent",
+                marginLeft: 2,
+              }}
+            />
+          </form>
+        </div>
+      </div>
+
+      {/* Status bar */}
+      <div
+        style={{
+          marginTop: 8,
+          color: "#2a5a2a",
+          fontSize: 12,
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <span>— Click sidebar items or type commands —</span>
+        <span>help • about • projects • skills • experience</span>
+      </div>
+    </div>
+  );
 }

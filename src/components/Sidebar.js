@@ -1,98 +1,123 @@
 /* eslint-disable */
-import { React } from "react";
-import { colors } from "../Config";
+import React from "react";
 import profileImg from "../images/profile.jpeg";
 
 export default function Sidebar({ activePage, onNavigate }) {
   const menuItems = ["About Me", "Experience", "Skills", "Projects"];
-   
+
+  // Terminal‑inspired colors
+  const terminalGreen = "#33ff33";
+  const terminalDark = "#0c0c0c";
+  const terminalGray = "#1a1a1a";
+  const terminalBorder = "#2a2a2a";
+
   return (
     <div
       style={{
-        width: "260px",
-        background: colors.bark.dark, 
-        color: colors.cream.light,
-        padding: "28px 22px",
-        minHeight: "100vh",
+        width: "280px",
+        background: terminalDark,
+        color: terminalGreen,
+        padding: "28px 20px",
+        height: "100vh",
         boxSizing: "border-box",
-        borderRight: `1px solid ${colors.bark.light}`,
+        borderRight: `1px solid ${terminalBorder}`,
+        fontFamily: "'Courier New', Courier, monospace",
+        overflowY: "auto",
       }}
     >
-    
-      <div style={{ marginBottom: "24px" }}>
+      {/* Profile image */}
+      <div style={{ marginBottom: "24px", textAlign: "center" }}>
         <img
           src={profileImg}
           alt="Profile"
           style={{
-            width: "100%",
+            width: "140px",
             height: "140px",
             objectFit: "cover",
-            borderRadius: "18px",
-            border: `2px solid ${colors.sage.light}`,
+            borderRadius: "50%",
+            border: `2px solid ${terminalGreen}`,
+            boxShadow: `0 0 15px ${terminalGreen}40`,
           }}
         />
       </div>
 
-      
-      <div style={{ marginBottom: "32px" }}>
+      {/* Name and title */}
+      <div style={{ marginBottom: "36px", textAlign: "center" }}>
         <h2
           style={{
             margin: 0,
-            fontSize: "24px",
-            fontWeight: 700,
-            color: colors.cream.light,
+            fontSize: "22px",
+            fontWeight: "bold",
+            color: terminalGreen,
+            letterSpacing: "1px",
           }}
         >
           Irfaan Braaf
         </h2>
-
         <h3
           style={{
-            margin: "6px 0 0 0",
+            margin: "8px 0 0 0",
             fontSize: "13px",
-            fontWeight: 500,
-            color: colors.sage.light,
-            letterSpacing: "1.5px",
+            fontWeight: "normal",
+            color: "#bbffbb",
             textTransform: "uppercase",
+            letterSpacing: "2px",
           }}
         >
-           Software Developer
+          $ Software Developer _
         </h3>
       </div>
 
- 
-      {menuItems.map((item) => (
-        <div
-          key={item}
-          onClick={() => onNavigate(item)}
-          style={{
-            margin: "14px 0",
-            padding: "12px 14px",
-            borderRadius: "16px", 
-            cursor: "pointer",
-            fontSize: "14px",
-            fontWeight: 500,
-            color: activePage === item ? "#fff" : colors.cream.light,
-            border: `1.5px solid ${activePage === item ? colors.sage.light : colors.sage.DEFAULT}`,
-            background: activePage === item ? colors.sage.dark : "rgba(156, 175, 136, 0.08)",
-            transition: "all 0.25s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = colors.sage.dark;
-            e.currentTarget.style.color = "#fff";
-            e.currentTarget.style.borderColor = colors.sage.light;
-            e.currentTarget.style.transform = "translateX(6px)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = activePage === item ? colors.sage.dark : "rgba(156, 175, 136, 0.08)";
-            e.currentTarget.style.color = activePage === item ? "#fff" : colors.cream.light;
-            e.currentTarget.style.borderColor = activePage === item ? colors.sage.light : colors.sage.DEFAULT;
-            e.currentTarget.style.transform = "translateX(0)";
-          }}
-        >
-          {item.toUpperCase()}
-        </div>
-      ))}
+      {/* Navigation menu */}
+      <div>
+        {menuItems.map((item) => (
+          <div
+            key={item}
+            onClick={() => onNavigate(item)}
+            style={{
+              margin: "12px 0",
+              padding: "12px 16px",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: activePage === item ? terminalDark : terminalGreen,
+              background: activePage === item ? terminalGreen : "transparent",
+              border: `1px solid ${activePage === item ? terminalGreen : terminalBorder}`,
+              transition: "all 0.2s ease",
+              fontFamily: "inherit",
+              textAlign: "center",
+            }}
+            onMouseEnter={(e) => {
+              if (activePage !== item) {
+                e.currentTarget.style.background = "#1a3a1a";
+                e.currentTarget.style.borderColor = terminalGreen;
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (activePage !== item) {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.borderColor = terminalBorder;
+              }
+            }}
+          >
+            {`> ${item}`}
+          </div>
+        ))}
+      </div>
+
+      {/* Status line */}
+      <div
+        style={{
+          marginTop: "40px",
+          fontSize: "12px",
+          color: "#2a5a2a",
+          borderTop: `1px solid ${terminalBorder}`,
+          paddingTop: "16px",
+        }}
+      >
+        [v1.0.0] — type 'help'
+      </div>
     </div>
   );
 }
