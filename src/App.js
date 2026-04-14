@@ -1,34 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
 import { useState } from "react";
 import MainPage from "./views/MainPage";
-import Experience from "./views/Experience";
-import Projects from "./views/Projects";
-import Skills from "./views/Skills";
 import Sidebar from "./components/Sidebar";
 
 function App() {
   const [activePage, setActivePage] = useState("About Me");
+  const [externalCommand, setExternalCommand] = useState("");
 
-  const renderContent = () => {
-    switch (activePage) {
-      case "About Me":
-        return <MainPage />;
-      case "Experience":
-        return <Experience />;
-      case "Projects":
-        return <Projects />;
-      case "Skills":
-        return <Skills />;
-      default:
-        return <MainPage />;
-    }
+  const handleNavigate = (item) => {
+    setActivePage(item);
+
+    const command = item === "About Me" ? "about" : item.toLowerCase();
+    setExternalCommand(command);
+  };
+
+  const handleCommandProcessed = () => {
+    setExternalCommand("");
   };
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", scrollbarGutter: "stable", scrollBehavior: "smooth" }}>
-      <Sidebar activePage={activePage} onNavigate={setActivePage} />
-      {renderContent()}
+    <div style={{ display: "flex", width: "100%", minHeight: "100vh", scrollbarGutter: "stable", scrollBehavior: "smooth" }}>
+      <Sidebar activePage={activePage} onNavigate={handleNavigate} />
+      <MainPage
+        activePage={activePage}
+        onPageChange={setActivePage}
+        externalCommand={externalCommand}
+        onCommandProcessed={handleCommandProcessed}
+      />
     </div>
   );
 }
