@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Irfaan Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A personal portfolio built with React and a terminal-style interactive UI. The app showcases an "About Me" section, Projects, Experience, and Skills through typed terminal output and command navigation.
+
+## Features
+
+- Interactive terminal interface with typed output
+- Built-in commands: `about`, `projects`, `experience`, `skills`, `help`, and `clear`
+- Project gallery with dynamic cards and fail-safe rendering
+- Responsive design with an accessible keyboard-driven experience
+- Uses React hooks, functional components, and a lightweight typewriter effect
+
+## Project Structure
+
+- `src/App.js` — main layout and sidebar integration
+- `src/views/MainPage.js` — terminal UI, command handling, and page state
+- `src/components/ProjectsGallery.js` — renders the projects section
+- `src/components/ProjectCard.js` — individual project card visuals
+- `src/components/UseTypewriter.js` — typed output hook with queue safety
+- `src/ProjectData.js` — project metadata and links
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Starts the development server.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Launches the test runner.
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Ejects the Create React App build configuration. This is permanent.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### `npm run deploy`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Builds and deploys the app using `gh-pages`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Deployment
+
+This project is configured to deploy to GitHub Pages using the `homepage` field in `package.json`:
+
+`https://irfaanbraaf.github.io/irfaan-portfolio`
+
+Run:
+
+\`\`\`bash
+npm run deploy
+\`\`\`
+
+## Notes
+
+- The app is currently set up as a static portfolio. The terminal commands are simulated and control page state locally.
+- Project cards support missing or protected links (`NDA Protected` or `Private Repository`).
+- Command output is safely queued and rendered with fallback handling to prevent incomplete content.
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project was created with Create React App. For more information on CRA usage and configuration, see:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- https://create-react-app.dev/
+- https://reactjs.org
