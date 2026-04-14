@@ -2,7 +2,7 @@ const Styles = {
     container: {
         flex: 1,
         minWidth: 0,
-        height: "100%",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         background: "#0c0c0c",
@@ -19,9 +19,7 @@ const Styles = {
         background: "#0a0a0a",
         border: "1px solid #2a2a2a",
         borderRadius: "12px",
-        overflow: "hidden",
         boxShadow: "0 0 30px rgba(0, 255, 0, 0.08)",
-        minHeight: 0,
     },
     terminalHeader: {
         background: "#151515",
@@ -56,13 +54,14 @@ const Styles = {
         fontSize: "18px",
         lineHeight: "1.6",
         background: "#0c0c0c",
+        overflow: "hidden",
     },
     outputArea: {
         flex: 1,
         minHeight: 0,
         overflowY: "auto",
-        scrollbarWidth: "thin",
-        scrollbarColor: "#2a5a2a #0c0c0c",
+        overflowX: "hidden",
+        paddingBottom: "12px",
     },
     line: {
         whiteSpace: "pre-wrap",
@@ -74,6 +73,7 @@ const Styles = {
         display: "flex",
         alignItems: "center",
         marginTop: 16,
+        flexShrink: 0,
     },
     prompt: {
         color: "#00ff00",

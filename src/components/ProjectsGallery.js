@@ -3,20 +3,28 @@ import ProjectCard from "./ProjectCard";
 import Styles from "../Styles";
 
 const ProjectsGallery = ({ projects }) => {
-  return (
-    <div style={Styles.galleryContainer}>
-      <div style={Styles.galleryHeader}>
-        <span>══════════════════════════════════════════════════════════</span>
-        <span style={Styles.galleryTitle}>PROJECTS</span>
-        <span>══════════════════════════════════════════════════════════</span>
-      </div>
-      <div style={Styles.cardGrid}>
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
-    </div>
-  );
+    const safeProjects = Array.isArray(projects) ? projects : [];
+
+    return (
+        <div style={Styles.galleryContainer}>
+            <div style={Styles.galleryHeader}>
+                <span>══════════════════════════════════════════════════════════</span>
+                <span style={Styles.galleryTitle}>PROJECTS</span>
+                <span>══════════════════════════════════════════════════════════</span>
+            </div>
+            <div style={Styles.cardGrid}>
+                {safeProjects.length > 0 ? (
+                    safeProjects.map((project) => (
+                        <ProjectCard key={project?.id || project?.name || Math.random()} project={project} />
+                    ))
+                ) : (
+                    <div style={{ color: "#ccffcc", padding: "1rem" }}>
+                        No projects are available right now. Please try again later.
+                    </div>
+                )}
+            </div>
+        </div>
+    );
 };
 
 export default ProjectsGallery;

@@ -15,10 +15,12 @@ export default function Sidebar({ activePage, onNavigate }) {
     <div
       style={{
         width: "280px",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
         background: terminalDark,
         color: terminalGreen,
         padding: "28px 20px",
-        height: "100vh",
         boxSizing: "border-box",
         borderRight: `1px solid ${terminalBorder}`,
         fontFamily: "'Courier New', Courier, monospace",

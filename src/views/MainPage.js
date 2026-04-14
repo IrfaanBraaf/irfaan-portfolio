@@ -17,7 +17,7 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
 
   const { isTyping } = useTypewriter(pendingLines, setOutputLines);
 
-  const terminalPath = activePage === "About Me" ? "/about me" : `/${activePage.toLowerCase()}`;
+  const terminalPath = activePage === "About Me" ? "/about me" : `/${(activePage || "home").toLowerCase()}`;
 
   // Initialize: static "Welcome." then queue about section
   useEffect(() => {
@@ -97,17 +97,18 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
           onPageChange("About Me");
           response = formatAboutOutput();
           break;
-        case "projects":
+          case "projects": {
           onPageChange("Projects");
           setOutputLines((prev) => [
             ...prev,
             {
               type: "component",
-              component: <ProjectsGallery projects={ProjectsData} />,
+              component: <ProjectsGallery projects={ProjectsData || []} />,
             },
             { type: "output", content: "" },
           ]);
           return;
+        }
         case "experience":
           onPageChange("Experience");
           response = formatExperienceOutput();
@@ -154,85 +155,99 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
     ].join("\n");
   };
 
-  const formatAboutOutput = () => {
-    return [
-      "══════════════════════════════════════════════════════════",
-      "                     ABOUT ME",
-      "══════════════════════════════════════════════════════════",
-      "",
-      "I am a passionate software developer with experience in building",
-      "full-stack web and mobile applications. I enjoy solving real-world",
-      "problems through technology and creating systems that are reliable,",
-      "scalable, and user-focused.",
-      "",
-      "► PROFESSIONAL IDEALS",
-      "   Quality, integrity, clean maintainable code. Innovation and",
-      "   continuous learning. Collaboration and feedback.",
-      "",
-      "► PERSONAL VALUES",
-      "   Integrity, curiosity, empathy, balance. Honesty, transparency,",
-      "   and making time for what matters outside work.",
-      "",
-      "► GOALS IN LIFE",
-      "   Strengthen full-stack skills, contribute to meaningful projects,",
-      "   stay connected to nature, and build a life of balance and purpose.",
-    ].join("\n");
-  };
+ const formatAboutOutput = () => {
+  return [
+    "══════════════════════════════════════════════════════════",
+    "                     ABOUT ME",
+    "══════════════════════════════════════════════════════════",
+    "",
+    "I am a dedicated software developer with experience building",
+    "full-stack web and mobile applications. I enjoy turning real-world",
+    "problems into practical solutions through technology, and I care",
+    "about creating systems that are dependable, scalable, and built",
+    "with the user in mind.",
+    "",
+    "► PROFESSIONAL IDEALS",
+    "   Strong work ethic, honesty, and clean, maintainable code.",
+    "   Innovation, steady learning, and working well with others.",
+    "",
+    "► PERSONAL VALUES",
+    "   Integrity, curiosity, empathy, and balance. I value honesty,",
+    "   transparency, and making time for the things that matter beyond work.",
+    "",
+    "► GOALS IN LIFE",
+    "   Keep growing my full-stack skills, contribute to meaningful projects,",
+    "   stay close to nature, and build a life with purpose and balance.",
+  ].join("\n");
+};
 
-  const formatExperienceOutput = () => {
-    return [
-      "══════════════════════════════════════════════════════════",
-      "                   WORK EXPERIENCE",
-      "══════════════════════════════════════════════════════════",
-      "",
-      "► Senior Developer @ TechCorp (2022–Present)",
-      "   - Lead frontend architecture for customer dashboard",
-      "   - Mentored junior developers, improved performance by 40%",
-      "",
-      "► Full-Stack Engineer @ StartupX (2020–2022)",
-      "   - Built scalable microservices with Node.js and Docker",
-      "   - Implemented CI/CD pipelines and reduced deploy time",
-      "",
-      "► Junior Developer @ WebAgency (2018–2020)",
-      "   - Developed responsive websites for clients",
-      "   - Collaborated with designers to deliver pixel-perfect UIs",
-    ].join("\n");
-  };
+const formatExperienceOutput = () => {
+  return [
+    "══════════════════════════════════════════════════════════",
+    "                   WORK EXPERIENCE",
+    "══════════════════════════════════════════════════════════",
+    "",
+    "► Junior Software Developer @ Plum Systems (01/2025–Present)",
+    "   - Develop and support web & mobile apps; ensure system reliability",
+    "   - Full‑stack work (Java, Python, React/React Native): build, update, support features",
+    "   - Run weekly client meetings, gather requirements, manage deadlines",
+    "   - Optimize SQL & NoSQL databases for integrity and performance",
+    "",
+    "► Software Developer Intern @ Plum Systems (06/2024–12/2024)",
+    "   - Trained in front‑end & back‑end development across the full stack",
+    "   - Contributed to UI/UX design and delivered multiple user‑focused projects",
+  ].join("\n");
+};
 
   const formatSkillsOutput = () => {
-    return [
-      "══════════════════════════════════════════════════════════",
-      "                    TECHNICAL SKILLS",
-      "══════════════════════════════════════════════════════════",
-      "",
-      "Languages:   JavaScript (ES6+), TypeScript, Python, Go",
-      "Frontend:    React, Next.js, Vue, Tailwind CSS",
-      "Backend:     Node.js, Express, Django, FastAPI",
-      "Databases:   PostgreSQL, MongoDB, Redis",
-      "DevOps:      Docker, Kubernetes, GitHub Actions, AWS",
-      "Tools:       Git, Webpack, Vite, Figma",
-    ].join("\n");
-  };
+  return [
+    "══════════════════════════════════════════════════════════",
+    "                    TECHNICAL SKILLS",
+    "══════════════════════════════════════════════════════════",
+    "",
+    "Languages:      JavaScript (ES6+), SQL, HTML5, CSS3",
+    "Frontend:       React, React Native",
+    "Backend:        Full‑stack web development",
+    "Databases:      Firestore, Firebase Realtime Database, SQL (NoSQL)",
+    "Tools & Others: Git, REST APIs, UI/UX Design",
+    "",
+    "══════════════════════════════════════════════════════════",
+    "                      SOFT SKILLS",
+    "══════════════════════════════════════════════════════════",
+    "",
+    "• Client Relationship Management & requirements gathering",
+    "• Weekly client meetings & deadline management",
+    "• Team collaboration & cross‑functional communication",
+    "• Problem‑solving & system reliability focus",
+    "• Adaptability (full‑stack web & mobile support)",
+  ].join("\n");
+};
 
-  // Render output line
+
   const renderOutputLine = (line, idx) => {
-    if (line.type === "component") {
-      return <div key={idx}>{line.component}</div>;
+    const safeLine = line || { type: "output", content: "" };
+    if (safeLine.type === "component") {
+      return (
+        <div key={idx}>
+          {safeLine.component && React.isValidElement(safeLine.component) ? (
+            safeLine.component
+          ) : (
+            <div style={Styles.line}>Unable to load this section. Try again or reload the page.</div>
+          )}
+        </div>
+      );
     }
+
+    const color =
+      safeLine.type === "command"
+        ? "#00ff00"
+        : safeLine.type === "error"
+        ? "#ff8888"
+        : "#ccffcc";
+
     return (
-      <div
-        key={idx}
-        style={{
-          ...Styles.line,
-          color:
-            line.type === "command"
-              ? "#00ff00"
-              : line.type === "error"
-                ? "#ff8888"
-                : "#ccffcc",
-        }}
-      >
-        {line.content}
+      <div key={idx} style={{ ...Styles.line, color }}>
+        {safeLine.content || ""}
       </div>
     );
   };

@@ -18,7 +18,7 @@ function App() {
   };
 
   return (
-    <div style={{ display: "flex", width: "100%", height: "100vh", overflow: "hidden", scrollbarGutter: "stable", scrollBehavior: "smooth" }}>
+    <div style={{ display: "flex", width: "100%", minHeight: "100vh", scrollbarGutter: "stable", scrollBehavior: "smooth" }}>
       <Sidebar activePage={activePage} onNavigate={handleNavigate} />
       <MainPage
         activePage={activePage}
