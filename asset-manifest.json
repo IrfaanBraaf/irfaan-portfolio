@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/irfaan-portfolio/static/css/main.0dbfbd99.css",
-    "main.js": "/irfaan-portfolio/static/js/main.74a2a57f.js",
+    "main.js": "/irfaan-portfolio/static/js/main.155ec2cf.js",
     "static/media/profile.jpeg": "/irfaan-portfolio/static/media/profile.7bcb6079b57b13bb9a85.jpeg",
     "index.html": "/irfaan-portfolio/index.html",
     "main.0dbfbd99.css.map": "/irfaan-portfolio/static/css/main.0dbfbd99.css.map",
-    "main.74a2a57f.js.map": "/irfaan-portfolio/static/js/main.74a2a57f.js.map"
+    "main.155ec2cf.js.map": "/irfaan-portfolio/static/js/main.155ec2cf.js.map"
   },
   "entrypoints": [
     "static/css/main.0dbfbd99.css",
-    "static/js/main.74a2a57f.js"
+    "static/js/main.155ec2cf.js"
   ]
 }
