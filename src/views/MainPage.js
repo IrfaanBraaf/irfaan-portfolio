@@ -274,7 +274,7 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
             {outputLines.map(renderOutputLine)}
           </div>
 
-          <form onSubmit={handleCommandSubmit} style={Styles.inputForm}>
+          <form onSubmit={handleCommandSubmit} style={Styles.inputForm} className="terminal-input-form">
             <span style={Styles.prompt}>visitor@portfolio:{terminalPath}$</span>
             <input
               ref={inputRef}

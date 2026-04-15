@@ -19,6 +19,21 @@ code {
     monospace;
 }
 
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .app-shell {
   display: flex;
   width: 100%;
@@ -31,6 +46,39 @@ code {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+}
+
+.main-page-container {
+  width: 100%;
+  max-width: 100%;
+}
+
+.terminal-window {
+  width: 100%;
+  max-width: 100%;
+}
+
+.terminal-body {
+  min-width: 0;
+  width: 100%;
+}
+
+.terminal-output {
+  min-width: 0;
+  width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.terminal-input-form {
+  width: 100%;
+  min-width: 0;
+}
+
+.terminal-input-form input {
+  min-width: 0;
 }
 
 .mobile-header {

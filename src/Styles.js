@@ -74,6 +74,9 @@ const Styles = {
         alignItems: "center",
         marginTop: 16,
         flexShrink: 0,
+        flexWrap: "wrap",
+        minWidth: 0,
+        gap: "8px",
     },
     prompt: {
         color: "#00ff00",
@@ -82,6 +85,8 @@ const Styles = {
         userSelect: "none",
         textShadow: "0 0 4px #00ff0040",
         fontSize: "18px",
+        minWidth: 0,
+        overflowWrap: "anywhere",
     },
     input: {
         background: "transparent",
@@ -91,6 +96,7 @@ const Styles = {
         fontFamily: "inherit",
         fontSize: "18px",
         flex: 1,
+        minWidth: 0,
         caretColor: "#00ff00",
     },
     cursor: {

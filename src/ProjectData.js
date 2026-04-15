@@ -51,7 +51,7 @@ export const ProjectsData = [
     description:
       "A tool where you enter your South African address and instantly see who your elected representatives are—your ward councillor, MP, and MPL—along with their contact details and party.",
     image: cloudImage,
-    link: null,
+    link: "https://github.com/IrfaanBraaf/RepFinder-SA-",
     nda: false,
     tech: ["React", "Node.js", "JavaScript", "Scss", "Css"],
   },
@@ -61,7 +61,7 @@ export const ProjectsData = [
     description:
       "TapAttend aims to modernize attendance tracking using NFC technology, reducing manual processes and improving the accuracy and efficiency of attendance management systems.",
     image: cloudImage,
-    link: null,
+    link: "https://github.com/IrfaanBraaf/TapAttend",
     nda: false,
     tech: ["React", "Node.js", "JavaScript", "Scss", "Css"],
   },
