@@ -1,14 +1,17 @@
 {
   "files": {
-    "main.css": "/irfaan-portfolio/static/css/main.0dbfbd99.css",
-    "main.js": "/irfaan-portfolio/static/js/main.155ec2cf.js",
+    "main.css": "/irfaan-portfolio/static/css/main.2b6691b7.css",
+    "main.js": "/irfaan-portfolio/static/js/main.f09a1b64.js",
     "static/media/profile.jpeg": "/irfaan-portfolio/static/media/profile.7bcb6079b57b13bb9a85.jpeg",
+    "static/media/Odessee.jpg": "/irfaan-portfolio/static/media/Odessee.35f15b84d7db638ff685.jpg",
+    "static/media/OfficePlace-logo-1024px.png": "/irfaan-portfolio/static/media/OfficePlace-logo-1024px.b2af223bc91e744489e1.png",
+    "static/media/API-logo-ligh-blue-back138x75.png": "/irfaan-portfolio/static/media/API-logo-ligh-blue-back138x75.c09bef5cf0d8efdd40ac.png",
     "index.html": "/irfaan-portfolio/index.html",
-    "main.0dbfbd99.css.map": "/irfaan-portfolio/static/css/main.0dbfbd99.css.map",
-    "main.155ec2cf.js.map": "/irfaan-portfolio/static/js/main.155ec2cf.js.map"
+    "main.2b6691b7.css.map": "/irfaan-portfolio/static/css/main.2b6691b7.css.map",
+    "main.f09a1b64.js.map": "/irfaan-portfolio/static/js/main.f09a1b64.js.map"
   },
   "entrypoints": [
-    "static/css/main.0dbfbd99.css",
-    "static/js/main.155ec2cf.js"
+    "static/css/main.2b6691b7.css",
+    "static/js/main.f09a1b64.js"
   ]
 }
