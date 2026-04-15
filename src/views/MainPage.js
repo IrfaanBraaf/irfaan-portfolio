@@ -97,7 +97,7 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
           onPageChange("About Me");
           response = formatAboutOutput();
           break;
-          case "projects": {
+        case "projects": {
           onPageChange("Projects");
           setOutputLines((prev) => [
             ...prev,
@@ -155,73 +155,73 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
     ].join("\n");
   };
 
- const formatAboutOutput = () => {
-  return [
-    "══════════════════════════════════════════════════════════",
-    "                     ABOUT ME",
-    "══════════════════════════════════════════════════════════",
-    "",
-    "I am a dedicated software developer with experience building",
-    "full-stack web and mobile applications. I enjoy turning real-world",
-    "problems into practical solutions through technology, and I care",
-    "about creating systems that are dependable, scalable, and built",
-    "with the user in mind.",
-    "",
-    "► PROFESSIONAL IDEALS",
-    "   Strong work ethic, honesty, and clean, maintainable code.",
-    "   Innovation, steady learning, and working well with others.",
-    "",
-    "► PERSONAL VALUES",
-    "   Integrity, curiosity, empathy, and balance. I value honesty,",
-    "   transparency, and making time for the things that matter beyond work.",
-    "",
-    "► GOALS IN LIFE",
-    "   Keep growing my full-stack skills, contribute to meaningful projects,",
-    "   stay close to nature, and build a life with purpose and balance.",
-  ].join("\n");
-};
+  const formatAboutOutput = () => {
+    return [
+      "══════════════════════════════════════════════════════════",
+      "                     ABOUT ME",
+      "══════════════════════════════════════════════════════════",
+      "",
+      "I am a dedicated software developer with experience building",
+      "full-stack web and mobile applications. I enjoy turning real-world",
+      "problems into practical solutions through technology, and I care",
+      "about creating systems that are dependable, scalable, and built",
+      "with the user in mind.",
+      "",
+      "► PROFESSIONAL IDEALS",
+      "   Strong work ethic, honesty, and clean, maintainable code.",
+      "   Innovation, steady learning, and working well with others.",
+      "",
+      "► PERSONAL VALUES",
+      "   Integrity, curiosity, empathy, and balance. I value honesty,",
+      "   transparency, and making time for the things that matter beyond work.",
+      "",
+      "► GOALS IN LIFE",
+      "   Keep growing my full-stack skills, contribute to meaningful projects,",
+      "   stay close to nature, and build a life with purpose and balance.",
+    ].join("\n");
+  };
 
-const formatExperienceOutput = () => {
-  return [
-    "══════════════════════════════════════════════════════════",
-    "                   WORK EXPERIENCE",
-    "══════════════════════════════════════════════════════════",
-    "",
-    "► Junior Software Developer @ Plum Systems (01/2025–Present)",
-    "   - Develop and support web & mobile apps; ensure system reliability",
-    "   - Full‑stack work (Java, Python, React/React Native): build, update, support features",
-    "   - Run weekly client meetings, gather requirements, manage deadlines",
-    "   - Optimize SQL & NoSQL databases for integrity and performance",
-    "",
-    "► Software Developer Intern @ Plum Systems (06/2024–12/2024)",
-    "   - Trained in front‑end & back‑end development across the full stack",
-    "   - Contributed to UI/UX design and delivered multiple user‑focused projects",
-  ].join("\n");
-};
+  const formatExperienceOutput = () => {
+    return [
+      "══════════════════════════════════════════════════════════",
+      "                   WORK EXPERIENCE",
+      "══════════════════════════════════════════════════════════",
+      "",
+      "► Junior Software Developer @ Plum Systems (01/2025–Present)",
+      "   - Develop and support web & mobile apps; ensure system reliability",
+      "   - Full‑stack work (Java, Python, React/React Native): build, update, support features",
+      "   - Run weekly client meetings, gather requirements, manage deadlines",
+      "   - Optimize SQL & NoSQL databases for integrity and performance",
+      "",
+      "► Software Developer Intern @ Plum Systems (06/2024–12/2024)",
+      "   - Trained in front‑end & back‑end development across the full stack",
+      "   - Contributed to UI/UX design and delivered multiple user‑focused projects",
+    ].join("\n");
+  };
 
   const formatSkillsOutput = () => {
-  return [
-    "══════════════════════════════════════════════════════════",
-    "                    TECHNICAL SKILLS",
-    "══════════════════════════════════════════════════════════",
-    "",
-    "Languages:      JavaScript (ES6+), SQL, HTML5, CSS3",
-    "Frontend:       React, React Native",
-    "Backend:        Full‑stack web development",
-    "Databases:      Firestore, Firebase Realtime Database, SQL (NoSQL)",
-    "Tools & Others: Git, REST APIs, UI/UX Design",
-    "",
-    "══════════════════════════════════════════════════════════",
-    "                      SOFT SKILLS",
-    "══════════════════════════════════════════════════════════",
-    "",
-    "• Client Relationship Management & requirements gathering",
-    "• Weekly client meetings & deadline management",
-    "• Team collaboration & cross‑functional communication",
-    "• Problem‑solving & system reliability focus",
-    "• Adaptability (full‑stack web & mobile support)",
-  ].join("\n");
-};
+    return [
+      "══════════════════════════════════════════════════════════",
+      "                    TECHNICAL SKILLS",
+      "══════════════════════════════════════════════════════════",
+      "",
+      "Languages:      JavaScript (ES6+), SQL, HTML5, CSS3",
+      "Frontend:       React, React Native",
+      "Backend:        Full‑stack web development",
+      "Databases:      Firestore, Firebase Realtime Database, SQL (NoSQL)",
+      "Tools & Others: Git, REST APIs, UI/UX Design",
+      "",
+      "══════════════════════════════════════════════════════════",
+      "                      SOFT SKILLS",
+      "══════════════════════════════════════════════════════════",
+      "",
+      "• Client Relationship Management & requirements gathering",
+      "• Weekly client meetings & deadline management",
+      "• Team collaboration & cross‑functional communication",
+      "• Problem‑solving & system reliability focus",
+      "• Adaptability (full‑stack web & mobile support)",
+    ].join("\n");
+  };
 
 
   const renderOutputLine = (line, idx) => {
@@ -242,8 +242,8 @@ const formatExperienceOutput = () => {
       safeLine.type === "command"
         ? "#00ff00"
         : safeLine.type === "error"
-        ? "#ff8888"
-        : "#ccffcc";
+          ? "#ff8888"
+          : "#ccffcc";
 
     return (
       <div key={idx} style={{ ...Styles.line, color }}>
@@ -253,9 +253,9 @@ const formatExperienceOutput = () => {
   };
 
   return (
-    <div style={Styles.container}>
+    <div style={Styles.container} className="main-page-container">
       <div style={Styles.terminalWindow}>
-        <div style={Styles.terminalHeader}>
+        <div style={Styles.terminalHeader} className="terminal-header">
           <div style={Styles.windowControls}>
             <span style={{ ...Styles.controlDot, background: "#ff5f56" }} />
             <span style={{ ...Styles.controlDot, background: "#ffbd2e" }} />
@@ -267,9 +267,10 @@ const formatExperienceOutput = () => {
         <div
           ref={terminalBodyRef}
           style={Styles.terminalBody}
+          className="terminal-body"
           onClick={() => inputRef.current?.focus()}
         >
-          <div ref={outputAreaRef} style={Styles.outputArea}>
+          <div ref={outputAreaRef} style={Styles.outputArea} className="terminal-output">
             {outputLines.map(renderOutputLine)}
           </div>
 

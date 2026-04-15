@@ -2,7 +2,7 @@
 import React from "react";
 import profileImg from "../images/profile.jpeg";
 
-export default function Sidebar({ activePage, onNavigate }) {
+export default function Sidebar({ activePage, onNavigate, isOpen, onToggle }) {
   const menuItems = ["About Me", "Experience", "Skills", "Projects"];
 
   // Terminal‑inspired colors
@@ -13,6 +13,7 @@ export default function Sidebar({ activePage, onNavigate }) {
 
   return (
     <div
+      className={`sidebar${isOpen ? " open" : ""}`}
       style={{
         width: "280px",
         minHeight: "100vh",
@@ -27,6 +28,11 @@ export default function Sidebar({ activePage, onNavigate }) {
         overflowY: "auto",
       }}
     >
+      <div className="sidebar-close-bar">
+        <button type="button" className="sidebar-close-btn" onClick={onToggle}>
+          ×
+        </button>
+      </div>
       {/* Profile image */}
       <div style={{ marginBottom: "24px", textAlign: "center" }}>
         <img

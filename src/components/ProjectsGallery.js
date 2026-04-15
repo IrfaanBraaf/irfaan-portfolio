@@ -12,7 +12,7 @@ const ProjectsGallery = ({ projects }) => {
                 <span style={Styles.galleryTitle}>PROJECTS</span>
                 <span>══════════════════════════════════════════════════════════</span>
             </div>
-            <div style={Styles.cardGrid}>
+            <div style={Styles.cardGrid} className="project-grid">
                 {safeProjects.length > 0 ? (
                     safeProjects.map((project) => (
                         <ProjectCard key={project?.id || project?.name || Math.random()} project={project} />

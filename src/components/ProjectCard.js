@@ -12,7 +12,7 @@ const ProjectCard = ({ project = {} }) => {
     } = project || {};
 
     return (
-        <div style={Styles.card}>
+        <div style={Styles.card} className="project-card">
             {image ? (
                 <img
                     src={image}
