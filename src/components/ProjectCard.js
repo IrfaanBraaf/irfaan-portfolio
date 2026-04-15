@@ -43,7 +43,7 @@ const ProjectCard = ({ project = {} }) => {
                             rel="noopener noreferrer"
                             style={Styles.link}
                         >
-                            View on GitLab →
+                            View on Github →
                         </a>
                     ) : nda ? (
                         <span style={Styles.ndaBadge}>🔒 NDA Protected</span>
