@@ -210,6 +210,20 @@ const Styles = {
         color: "#aaaaaa",
         fontSize: "14px",
     },
+    sectionHeader: {
+        background: "#0f1a0f",
+        border: "1px solid #2a5a2a",
+        borderRadius: "12px",
+        padding: "16px",
+        marginBottom: "20px",
+        textAlign: "center",
+        color: "#33ff33",
+        fontFamily: "inherit",
+        fontSize: "24px",
+        fontWeight: "bold",
+        letterSpacing: "4px",
+        textShadow: "0 0 10px #00ff00",
+    },
 };
 
 export default Styles;

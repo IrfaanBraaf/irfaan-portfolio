@@ -4,6 +4,7 @@ import Styles from "../Styles";
 import { useTypewriter } from "../components/UseTypewriter";
 import { ProjectsData } from "../ProjectData";
 import ProjectsGallery from "../components/ProjectsGallery";
+import SectionHeader from "../components/SectionHeader";
 
 export default function MainPage({ activePage, onPageChange, externalCommand, onCommandProcessed }) {
   const [command, setCommand] = useState("");
@@ -27,7 +28,36 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
     setOutputLines([{ type: "output", content: "Welcome." }]);
 
     setTimeout(() => {
-      enqueueResponse(formatAboutOutput(), "output");
+      setOutputLines((prev) => [
+        ...prev,
+        {
+          type: "component",
+          component: <SectionHeader title="ABOUT ME" />,
+        },
+      ]);
+      const aboutLines = [
+        "",
+        "I am a dedicated software developer with experience building",
+        "full-stack web and mobile applications. I enjoy turning real-world",
+        "problems into practical solutions through technology, and I care",
+        "about creating systems that are dependable, scalable, and built",
+        "with the user in mind.",
+        "",
+        "► PROFESSIONAL IDEALS",
+        "   Strong work ethic, honesty, and clean, maintainable code.",
+        "   Innovation, steady learning, and working well with others.",
+        "",
+        "► PERSONAL VALUES",
+        "   Integrity, curiosity, empathy, and balance. I value honesty,",
+        "   transparency, and making time for the things that matter beyond work.",
+        "",
+        "► GOALS IN LIFE",
+        "   Keep growing my full-stack skills, contribute to meaningful projects,",
+        "   stay close to nature, and build a life with purpose and balance.",
+      ];
+      aboutLines.forEach((line) => {
+        enqueueResponse(line, "output");
+      });
       setPendingLines((prev) => [...prev, { type: "output", content: "" }]);
     }, 200);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,10 +123,41 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
         case "help":
           response = formatHelpOutput();
           break;
-        case "about":
+        case "about": {
           onPageChange("About Me");
-          response = formatAboutOutput();
-          break;
+          setOutputLines((prev) => [
+            ...prev,
+            {
+              type: "component",
+              component: <SectionHeader title="ABOUT ME" />,
+            },
+          ]);
+          const aboutLines = [
+            "",
+            "I am a dedicated software developer with experience building",
+            "full-stack web and mobile applications. I enjoy turning real-world",
+            "problems into practical solutions through technology, and I care",
+            "about creating systems that are dependable, scalable, and built",
+            "with the user in mind.",
+            "",
+            "► PROFESSIONAL IDEALS",
+            "   Strong work ethic, honesty, and clean, maintainable code.",
+            "   Innovation, steady learning, and working well with others.",
+            "",
+            "► PERSONAL VALUES",
+            "   Integrity, curiosity, empathy, and balance. I value honesty,",
+            "   transparency, and making time for the things that matter beyond work.",
+            "",
+            "► GOALS IN LIFE",
+            "   Keep growing my full-stack skills, contribute to meaningful projects,",
+            "   stay close to nature, and build a life with purpose and balance.",
+          ];
+          aboutLines.forEach((line) => {
+            enqueueResponse(line, "output");
+          });
+          setPendingLines((prev) => [...prev, { type: "output", content: "" }]);
+          return;
+        }
         case "projects": {
           onPageChange("Projects");
           setOutputLines((prev) => [
@@ -109,14 +170,66 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
           ]);
           return;
         }
-        case "experience":
+        case "experience": {
           onPageChange("Experience");
-          response = formatExperienceOutput();
-          break;
-        case "skills":
+          setOutputLines((prev) => [
+            ...prev,
+            {
+              type: "component",
+              component: <SectionHeader title="WORK EXPERIENCE" />,
+            },
+          ]);
+          const experienceLines = [
+            "",
+            "► Junior Software Developer @ Plum Systems (01/2025–Present)",
+            "   - Develop and support web & mobile apps; ensure system reliability",
+            "   - Full‑stack work (Java, Python, React/React Native): build, update, support features",
+            "   - Run weekly client meetings, gather requirements, manage deadlines",
+            "   - Optimize SQL & NoSQL databases for integrity and performance",
+            "",
+            "► Software Developer Intern @ Plum Systems (06/2024–12/2024)",
+            "   - Trained in front‑end & back‑end development across the full stack",
+            "   - Contributed to UI/UX design and delivered multiple user‑focused projects",
+          ];
+          experienceLines.forEach((line) => {
+            enqueueResponse(line, "output");
+          });
+          setPendingLines((prev) => [...prev, { type: "output", content: "" }]);
+          return;
+        }
+        case "skills": {
           onPageChange("Skills");
-          response = formatSkillsOutput();
-          break;
+          setOutputLines((prev) => [
+            ...prev,
+            {
+              type: "component",
+              component: <SectionHeader title="TECHNICAL SKILLS" />,
+            },
+          ]);
+          const skillsLines = [
+            "",
+            "Languages:      JavaScript (ES6+), SQL, HTML5, CSS3",
+            "Frontend:       React, React Native",
+            "Backend:        Full‑stack web development",
+            "Databases:      Firestore, Firebase Realtime Database, SQL (NoSQL)",
+            "Tools & Others: Git, REST APIs, UI/UX Design",
+            "",
+            "══════════════════════════════════════════════════════════",
+            "                      SOFT SKILLS",
+            "══════════════════════════════════════════════════════════",
+            "",
+            "• Client Relationship Management & requirements gathering",
+            "• Weekly client meetings & deadline management",
+            "• Team collaboration & cross‑functional communication",
+            "• Problem‑solving & system reliability focus",
+            "• Adaptability (full‑stack web & mobile support)",
+          ];
+          skillsLines.forEach((line) => {
+            enqueueResponse(line, "output");
+          });
+          setPendingLines((prev) => [...prev, { type: "output", content: "" }]);
+          return;
+        }
         case "clear":
           setOutputLines([]);
           setPendingLines([]);
@@ -152,74 +265,6 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
       "  skills      - Check out my technical skills",
       "  clear       - Clear the terminal screen",
       "  help        - Show this help message",
-    ].join("\n");
-  };
-
-  const formatAboutOutput = () => {
-    return [
-      "══════════════════════════════════════════════════════════",
-      "                     ABOUT ME",
-      "══════════════════════════════════════════════════════════",
-      "",
-      "I am a dedicated software developer with experience building",
-      "full-stack web and mobile applications. I enjoy turning real-world",
-      "problems into practical solutions through technology, and I care",
-      "about creating systems that are dependable, scalable, and built",
-      "with the user in mind.",
-      "",
-      "► PROFESSIONAL IDEALS",
-      "   Strong work ethic, honesty, and clean, maintainable code.",
-      "   Innovation, steady learning, and working well with others.",
-      "",
-      "► PERSONAL VALUES",
-      "   Integrity, curiosity, empathy, and balance. I value honesty,",
-      "   transparency, and making time for the things that matter beyond work.",
-      "",
-      "► GOALS IN LIFE",
-      "   Keep growing my full-stack skills, contribute to meaningful projects,",
-      "   stay close to nature, and build a life with purpose and balance.",
-    ].join("\n");
-  };
-
-  const formatExperienceOutput = () => {
-    return [
-      "══════════════════════════════════════════════════════════",
-      "                   WORK EXPERIENCE",
-      "══════════════════════════════════════════════════════════",
-      "",
-      "► Junior Software Developer @ Plum Systems (01/2025–Present)",
-      "   - Develop and support web & mobile apps; ensure system reliability",
-      "   - Full‑stack work (Java, Python, React/React Native): build, update, support features",
-      "   - Run weekly client meetings, gather requirements, manage deadlines",
-      "   - Optimize SQL & NoSQL databases for integrity and performance",
-      "",
-      "► Software Developer Intern @ Plum Systems (06/2024–12/2024)",
-      "   - Trained in front‑end & back‑end development across the full stack",
-      "   - Contributed to UI/UX design and delivered multiple user‑focused projects",
-    ].join("\n");
-  };
-
-  const formatSkillsOutput = () => {
-    return [
-      "══════════════════════════════════════════════════════════",
-      "                    TECHNICAL SKILLS",
-      "══════════════════════════════════════════════════════════",
-      "",
-      "Languages:      JavaScript (ES6+), SQL, HTML5, CSS3",
-      "Frontend:       React, React Native",
-      "Backend:        Full‑stack web development",
-      "Databases:      Firestore, Firebase Realtime Database, SQL (NoSQL)",
-      "Tools & Others: Git, REST APIs, UI/UX Design",
-      "",
-      "══════════════════════════════════════════════════════════",
-      "                      SOFT SKILLS",
-      "══════════════════════════════════════════════════════════",
-      "",
-      "• Client Relationship Management & requirements gathering",
-      "• Weekly client meetings & deadline management",
-      "• Team collaboration & cross‑functional communication",
-      "• Problem‑solving & system reliability focus",
-      "• Adaptability (full‑stack web & mobile support)",
     ].join("\n");
   };
 

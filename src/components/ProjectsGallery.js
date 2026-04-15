@@ -1,17 +1,14 @@
 import React from "react";
 import ProjectCard from "./ProjectCard";
 import Styles from "../Styles";
+import SectionHeader from "./SectionHeader";
 
 const ProjectsGallery = ({ projects }) => {
     const safeProjects = Array.isArray(projects) ? projects : [];
 
     return (
         <div style={Styles.galleryContainer}>
-            <div style={Styles.galleryHeader}>
-                <span>══════════════════════════════════════════════════════════</span>
-                <span style={Styles.galleryTitle}>PROJECTS</span>
-                <span>══════════════════════════════════════════════════════════</span>
-            </div>
+            <SectionHeader title="PROJECTS" />
             <div style={Styles.cardGrid} className="project-grid">
                 {safeProjects.length > 0 ? (
                     safeProjects.map((project) => (
