@@ -182,4 +182,10 @@ body {
   .project-card img {
     height: 120px !important;
   }
+
+  .section-header {
+    padding: 12px !important;
+    font-size: 20px !important;
+    margin-bottom: 16px !important;
+  }
 }

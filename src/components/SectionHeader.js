@@ -3,7 +3,7 @@ import Styles from "../Styles";
 
 const SectionHeader = ({ title }) => {
     return (
-        <div style={Styles.sectionHeader}>
+        <div style={Styles.sectionHeader} className="section-header">
             {title}
         </div>
     );
