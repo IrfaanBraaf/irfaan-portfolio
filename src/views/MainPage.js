@@ -208,11 +208,12 @@ export default function MainPage({ activePage, onPageChange, externalCommand, on
           ]);
           const skillsLines = [
             "",
-            "Languages:      JavaScript (ES6+), SQL, HTML5, CSS3",
-            "Frontend:       React, React Native",
-            "Backend:        Full‑stack web development",
-            "Databases:      Firestore, Firebase Realtime Database, SQL (NoSQL)",
-            "Tools & Others: Git, REST APIs, UI/UX Design",
+            "Languages:        JavaScript (ES6+), Java, Python, SQL, HTML5, CSS3 ",
+            "Frontend:         React, React Native",
+            "Backend & APIs:   Node.js, Spring Boot (Java), REST API Development ",
+            "Databases:        MongoDB, Firebase (Firestore, Realtime DB), SQL ",
+            "Tools & DevOps:   Git, Postman  ",
+            "Other:            Full-Stack Development, UI/UX Design   ",
             "",
             "══════════════════════════════════════════════════════════",
             "                      SOFT SKILLS",
